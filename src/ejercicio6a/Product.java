@@ -32,8 +32,32 @@ public class Product {
 		this.shippingIncluded = shippingIncluded;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public Double getPrice() {
+		return this.price;
+	}
+	
+	public int getStock() {
+		return this.stock;
+	}
+	
+	public boolean getShippingIncluded() {
+		return this.shippingIncluded;
+	}
+	
 	@Override
 	public String toString() {
-		return "\n Producto [Id: " + id +", Nombre: " + name + ", Precio: " + price + "]";
+		return "\n Producto Id: " + id +", Nombre: " + name + ", Precio: " + price + "]";
 	}
 }
