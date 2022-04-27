@@ -31,6 +31,9 @@ public class Driver {
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/javamarket", "root", "root");
 			
+			//Pregunta: como hago para usar PreparedStatement con querys con distinta cantidad de variables?
+			//Pregunta: tengo que tener todo este codigo personalizado en cada metodo? o lo puedo generalizar como lo estoy haciendo ahora?
+			
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
@@ -79,14 +82,14 @@ public class Driver {
 		//JOptionPane.showMessageDialog(null, products);
 	
 		this.message = "";
-		if(products.isEmpty()) {
-			this.message = "No se ha encontrado ningún producto con ese id";
+		if(products.size() == 0) {
+			this.message = message + "No se ha encontrado ningún producto con ese id";
 		}else {
 			for (Product p : products) {
 				this.message = message + "Id: " + p.getId() + "\nNombre: " + p.getName() + "\nDescripción: " + p.getDescription() + "\nPrecio: " + p.getPrice() + "\nStock: " + p.getStock() + "\nIncluye envío: " + (p.getShippingIncluded() ? "Si" : "No");
 			}
 		}
-		JOptionPane.showMessageDialog(null, message);
+		JOptionPane.showMessageDialog(null, this.message);
 	}
 	
 }

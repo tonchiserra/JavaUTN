@@ -9,6 +9,8 @@ public class Main {
 		Driver drvr = new Driver();
 		
 		menu(drvr);
+		
+		System.exit(0);
 	}
 	
 	
@@ -18,6 +20,8 @@ public class Main {
 		
 		while(!flag) {
 			op = JOptionPane.showInputDialog("Ingrese una opción: \n[1] List \n[2] Search \n[3] New \n[4] Delete \n[5] Update \n\n[0] Exit");
+			
+			if(op == null) break;
 			
 			switch (op) {
 			case "1":

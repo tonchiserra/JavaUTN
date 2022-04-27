@@ -55,9 +55,4 @@ public class Product {
 	public boolean getShippingIncluded() {
 		return this.shippingIncluded;
 	}
-	
-	@Override
-	public String toString() {
-		return "\n Producto Id: " + id +", Nombre: " + name + ", Precio: " + price + "]";
-	}
 }
