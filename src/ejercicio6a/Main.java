@@ -25,13 +25,14 @@ public class Main {
 			
 			switch (op) {
 			case "1":
-				drvr.listAll();
+				JOptionPane.showMessageDialog(null, drvr.listAll());
 				break;
 			case "2":
-				drvr.getOne();
+				JOptionPane.showMessageDialog(null, drvr.getOne(Integer.parseInt(JOptionPane.showInputDialog("Ingrese id: "))));
 				break;
 			case "3":
-				//createProduct();
+				//Pedir datos por teclado
+				JOptionPane.showMessageDialog(null, drvr.createProduct("Lampara", "Color: Negro, con pinza y base", 3000, 100, false));
 				break;
 			case "4":
 				//deleteProduct();
