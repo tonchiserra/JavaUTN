@@ -31,14 +31,51 @@ public class Main {
 				JOptionPane.showMessageDialog(null, drvr.getOne(Integer.parseInt(JOptionPane.showInputDialog("Ingrese id: "))));
 				break;
 			case "3":
-				//Pedir datos por teclado
-				JOptionPane.showMessageDialog(null, drvr.createProduct("Lampara", "Color: Negro, con pinza y base", 3000, 100, false));
+				Product newProduct = new Product();
+				newProduct.setName(JOptionPane.showInputDialog("Ingrese nombre del producto a ingresar:"));
+				newProduct.setDescription(JOptionPane.showInputDialog("Ingrese descripción del producto:"));
+				newProduct.setPrice(Double.parseDouble(JOptionPane.showInputDialog("Ingrese precio del producto:")));
+				newProduct.setStock(Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de stock:")));
+				newProduct.setShippingIncluded(JOptionPane.showInputDialog("Ingrese 0 si el producto no incluye envio") != "0" ? true : false);
+				JOptionPane.showMessageDialog(null, drvr.createProduct(newProduct));
 				break;
 			case "4":
-				//deleteProduct();
+				JOptionPane.showMessageDialog(null, drvr.deleteProduct(Integer.parseInt(JOptionPane.showInputDialog("Ingrese id del producto que deseas eliminar:"))));
 				break;
 			case "5":
-				//updateProduct();
+				String updateOp;
+				boolean updateFlag = false;
+				int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese id del producto que desea modificar: "));
+				while(!updateFlag) {
+					updateOp = JOptionPane.showInputDialog(null, "Tu producto es:\n\n" + drvr.getOne(id) + "\n\n¿Qué quieres modificar? \n[1] Nombre \n[2] Descripción \n[3] Precio \n[4] Stock \n[5] Envío \n[0] Salir ");
+					if(updateOp == null) break;
+					switch (updateOp) {
+					case "1":
+						JOptionPane.showMessageDialog(null, drvr.updateNameProduct(id, JOptionPane.showInputDialog("Ingrese nuevo nombre:")));
+						break;
+					case "2":
+						JOptionPane.showMessageDialog(null, drvr.updateDescriptionProduct(id, JOptionPane.showInputDialog("Ingrese nueva descripción:")));
+						break;
+					case "3":
+						JOptionPane.showMessageDialog(null, drvr.updatePriceProduct(id, Double.parseDouble(JOptionPane.showInputDialog("Ingrese nuevo precio:"))));
+						break;
+					case "4":
+						JOptionPane.showMessageDialog(null, drvr.updateStockProduct(id, Integer.parseInt(JOptionPane.showInputDialog("Ingrese nuevo stock:"))));
+						break;
+					case "5":
+						JOptionPane.showMessageDialog(null, drvr.updateShippingIncludedProduct(id, JOptionPane.showInputDialog("Ingrese 0 si el producto no incluye envio") != "0" ? true : false));
+						break;
+					case "0":
+						updateFlag = true;
+						break;
+					default:
+						JOptionPane.showMessageDialog(null, "Por favor, ingrese una opción válida");
+						break;
+					}
+					
+				}
+				
+				//JOptionPane.showConfirmDialog(null, drvr.updateProduct());
 				break;
 			case "0":
 				flag = true;

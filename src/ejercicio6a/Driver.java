@@ -110,15 +110,15 @@ public class Driver {
 		return message;
 	}
 	
-	public String createProduct(String newName, String newDescription, double newPrice, int newStock, boolean newShippingIncluded) {
+	public String createProduct(Product newProduct) {
 		try {
 			this.createConnection();
 			PreparedStatement pstmt = conn.prepareStatement("insert into product (name, description, price, stock, shippingIncluded) values (?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, newName);
-			pstmt.setString(2, newDescription);
-			pstmt.setDouble(3, newPrice);
-			pstmt.setInt(4, newStock);
-			pstmt.setBoolean(5, newShippingIncluded);
+			pstmt.setString(1, newProduct.name);
+			pstmt.setString(2, newProduct.description);
+			pstmt.setDouble(3, newProduct.price);
+			pstmt.setInt(4, newProduct.stock);
+			pstmt.setBoolean(5, newProduct.shippingIncluded);
 			
 			pstmt.executeUpdate();
 			
@@ -127,11 +127,8 @@ public class Driver {
 			this.message = "";
 			while(keyRS != null && keyRS.next()) {
 				int id = keyRS.getInt(1);
-				String name = keyRS.getString(2);
 				
-				//Error al mostrar el mensaje.
-				
-				this.message = message + "Tu producto: \nId: " + id + "\nNombre: " + name + "\nSe agregó exitosamente!";
+				this.message = message + "Tu producto: \nId: " + id + "\nNombre: " + newProduct.name + "\nSe agregó exitosamente!";
 			}
 			
 			if(keyRS != null) {keyRS.close();}
@@ -145,4 +142,129 @@ public class Driver {
 		return message;
 	}
 	
+	
+	public String deleteProduct(int id) {
+		try {
+			this.createConnection();
+			PreparedStatement pstmt = conn.prepareStatement("delete from product where id=?");
+			pstmt.setInt(1, id);
+			
+			pstmt.executeUpdate();
+			
+			this.message = "El producto numero " + id + " fue eliminado correctamente";
+			
+			if(pstmt != null) {pstmt.close();}
+			conn.close();
+		}
+		catch(SQLException ex) {
+			this.message = "Error: " + ex.getMessage();
+		}
+		
+		return message;
+	}
+	
+	public String updateNameProduct(int id, String newName) {
+		try {
+			this.createConnection();
+			PreparedStatement pstmt = conn.prepareStatement("update product set name = ? where id = ?");
+			pstmt.setString(1, newName);
+			pstmt.setInt(2, id);
+			
+			pstmt.executeUpdate();
+			
+			this.message = "El producto fue modificado correctamente";
+			
+			if(pstmt != null) {pstmt.close();}
+			conn.close();
+		}
+		catch(SQLException ex) {
+			this.message = "Error: " + ex.getMessage();
+		}
+		
+		return message;
+	}
+	
+	public String updateDescriptionProduct(int id, String newDescription) {
+		try {
+			this.createConnection();
+			PreparedStatement pstmt = conn.prepareStatement("update product set description = ? where id = ?");
+			pstmt.setString(1, newDescription);
+			pstmt.setInt(2, id);
+			
+			pstmt.executeUpdate();
+			
+			this.message = "El producto fue modificado correctamente";
+			
+			if(pstmt != null) {pstmt.close();}
+			conn.close();
+		}
+		catch(SQLException ex) {
+			this.message = "Error: " + ex.getMessage();
+		}
+		
+		return message;
+	}
+	
+	public String updatePriceProduct(int id, double newPrice) {
+		try {
+			this.createConnection();
+			PreparedStatement pstmt = conn.prepareStatement("update product set price = ? where id = ?");
+			pstmt.setDouble(1, newPrice);
+			pstmt.setInt(2, id);
+			
+			pstmt.executeUpdate();
+			
+			this.message = "El producto fue modificado correctamente";
+			
+			if(pstmt != null) {pstmt.close();}
+			conn.close();
+		}
+		catch(SQLException ex) {
+			this.message = "Error: " + ex.getMessage();
+		}
+		
+		return message;
+	}
+	
+	public String updateStockProduct(int id, int newStock) {
+		try {
+			this.createConnection();
+			PreparedStatement pstmt = conn.prepareStatement("update product set stock = ? where id = ?");
+			pstmt.setInt(1, newStock);
+			pstmt.setInt(2, id);
+			
+			pstmt.executeUpdate();
+			
+			this.message = "El producto fue modificado correctamente";
+			
+			if(pstmt != null) {pstmt.close();}
+			conn.close();
+		}
+		catch(SQLException ex) {
+			this.message = "Error: " + ex.getMessage();
+		}
+		
+		return message;
+	}
+	
+	public String updateShippingIncludedProduct(int id, boolean newShippingIncluded) {
+		try {
+			this.createConnection();
+			PreparedStatement pstmt = conn.prepareStatement("update product set shippingIncluded = ? where id = ?");
+			pstmt.setBoolean(1, newShippingIncluded);
+			pstmt.setInt(2, id);
+			
+			pstmt.executeUpdate();
+			
+			this.message = "El producto fue modificado correctamente";
+			
+			if(pstmt != null) {pstmt.close();}
+			conn.close();
+		}
+		catch(SQLException ex) {
+			this.message = "Error: " + ex.getMessage();
+		}
+		
+		return message;
+	}
 }
