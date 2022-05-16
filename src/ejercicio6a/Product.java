@@ -55,4 +55,8 @@ public class Product {
 	public boolean getShippingIncluded() {
 		return this.shippingIncluded;
 	}
+	
+	public String toString() {
+		return "\nName: " + this.getName() + "\nDescription: " + this.getDescription() + "\nPrice: " + this.getPrice() + "\nStock: " + this.getStock() + "\nShipping Included: " + this.getShippingIncluded();
+	}
 }

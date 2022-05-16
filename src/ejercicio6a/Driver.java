@@ -69,7 +69,7 @@ public class Driver {
 	}
 	
 	
-	public String getOne(int id) {
+	public LinkedList<Product> getOne(int id) {
 		
 		try {
 			this.createConnection();
@@ -99,15 +99,15 @@ public class Driver {
 			this.message = "Error: " + ex.getMessage();
 		}
 	
-		if(products.size() == 0) {
+		/*if(products.size() == 0) {
 			this.message = "No se ha encontrado ningún producto con ese id";
 		}else {
 			for (Product p : products) {
 				this.message = "Id: " + p.getId() + "\nNombre: " + p.getName() + "\nDescripción: " + p.getDescription() + "\nPrecio: " + p.getPrice() + "\nStock: " + p.getStock() + "\nIncluye envío: " + (p.getShippingIncluded() ? "Si" : "No");
 			}
-		}
+		}*/
 		
-		return message;
+		return products;
 	}
 	
 	public String createProduct(Product newProduct) {
@@ -163,12 +163,16 @@ public class Driver {
 		return message;
 	}
 	
-	public String updateNameProduct(int id, String newName) {
+	public String updateProduct(Product updatedProduct) {
 		try {
 			this.createConnection();
-			PreparedStatement pstmt = conn.prepareStatement("update product set name = ? where id = ?");
-			pstmt.setString(1, newName);
-			pstmt.setInt(2, id);
+			PreparedStatement pstmt = conn.prepareStatement("update product set name = ?, description = ?, price = ?, stock = ?, shippingIncluded = ? where id = ?");
+			pstmt.setString(1, updatedProduct.getName());
+			pstmt.setString(2, updatedProduct.getDescription());
+			pstmt.setDouble(3, updatedProduct.getPrice());
+			pstmt.setInt(4, updatedProduct.getStock());
+			pstmt.setBoolean(5, updatedProduct.getShippingIncluded());
+			pstmt.setInt(6, updatedProduct.getId());
 			
 			pstmt.executeUpdate();
 			
@@ -176,95 +180,12 @@ public class Driver {
 			
 			if(pstmt != null) {pstmt.close();}
 			conn.close();
-		}
-		catch(SQLException ex) {
-			this.message = "Error: " + ex.getMessage();
+			
+		}catch(SQLException ex) {
+			this.message = "Error; " + ex.getMessage();
 		}
 		
 		return message;
 	}
 	
-	public String updateDescriptionProduct(int id, String newDescription) {
-		try {
-			this.createConnection();
-			PreparedStatement pstmt = conn.prepareStatement("update product set description = ? where id = ?");
-			pstmt.setString(1, newDescription);
-			pstmt.setInt(2, id);
-			
-			pstmt.executeUpdate();
-			
-			this.message = "El producto fue modificado correctamente";
-			
-			if(pstmt != null) {pstmt.close();}
-			conn.close();
-		}
-		catch(SQLException ex) {
-			this.message = "Error: " + ex.getMessage();
-		}
-		
-		return message;
-	}
-	
-	public String updatePriceProduct(int id, double newPrice) {
-		try {
-			this.createConnection();
-			PreparedStatement pstmt = conn.prepareStatement("update product set price = ? where id = ?");
-			pstmt.setDouble(1, newPrice);
-			pstmt.setInt(2, id);
-			
-			pstmt.executeUpdate();
-			
-			this.message = "El producto fue modificado correctamente";
-			
-			if(pstmt != null) {pstmt.close();}
-			conn.close();
-		}
-		catch(SQLException ex) {
-			this.message = "Error: " + ex.getMessage();
-		}
-		
-		return message;
-	}
-	
-	public String updateStockProduct(int id, int newStock) {
-		try {
-			this.createConnection();
-			PreparedStatement pstmt = conn.prepareStatement("update product set stock = ? where id = ?");
-			pstmt.setInt(1, newStock);
-			pstmt.setInt(2, id);
-			
-			pstmt.executeUpdate();
-			
-			this.message = "El producto fue modificado correctamente";
-			
-			if(pstmt != null) {pstmt.close();}
-			conn.close();
-		}
-		catch(SQLException ex) {
-			this.message = "Error: " + ex.getMessage();
-		}
-		
-		return message;
-	}
-	
-	public String updateShippingIncludedProduct(int id, boolean newShippingIncluded) {
-		try {
-			this.createConnection();
-			PreparedStatement pstmt = conn.prepareStatement("update product set shippingIncluded = ? where id = ?");
-			pstmt.setBoolean(1, newShippingIncluded);
-			pstmt.setInt(2, id);
-			
-			pstmt.executeUpdate();
-			
-			this.message = "El producto fue modificado correctamente";
-			
-			if(pstmt != null) {pstmt.close();}
-			conn.close();
-		}
-		catch(SQLException ex) {
-			this.message = "Error: " + ex.getMessage();
-		}
-		
-		return message;
-	}
 }
